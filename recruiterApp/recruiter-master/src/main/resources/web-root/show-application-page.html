@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{resources/fragments/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<main layout:fragment="content">
+    <section>
+        <p class="info">
+            <span th:text="#{user.details.welcome}">Welcome</span>: <span th:text="${currenUser.username}">username</span>!
+        </p>
+    </section>	
+
+    <section>
+		<h1 th:text="#{selected-application-info}">Detailed information of the application</h1>		
+		<p class="info"><span>Application ID</span>: <span th:text="${selectedApplication.getId()}">applicationID</span></p>
+		<p class="info"><span>Applicant</span>: <span th:text="${selectedApplication.getUser()}">applicant</span></p>		
+		<p class="info"><span>Application Date</span>: <span th:text="${selectedApplication.getApplicationDate()}">applicationDate</span></p>
+		<p class="info"><span>Competence Profiles</span>: 
+		<table>
+            <tr>
+				<th>Competence</th>
+				<th>YearsOfExperience</th>   				
+            </tr>
+            <tr th:each="competenceProfile:${selectedApplication.getCompetenceProfiles()">
+                <td th:text="${competenceProfile.getCompetence().getName()}">competence</td>
+				<td th:text="${competenceProfile.getYearsOfExperience()}">yearsOfExperience</td>
+            </tr>
+		</table></p>
+		<p class="info"><span>Availabilities</span>: 
+		<table>
+            <tr>
+				<th>FromDate</th>
+				<th>ToDate</th>   				
+            </tr>
+            <tr th:each="availability:${selectedApplication.getAvailabilities()">
+                <td th:text="${availability.getFromDate()}">fromDate</td>
+                <td th:text="${availability.getToDate()}">toDate</td>
+            </tr>
+		</table></p>
+		
+		<span>Application Status</span>: <p th:text="${selectedApplication.getStatus()}">applicationStatus</p>
+        <form th:action="@{/change-application-status}" th:object="${setApplicationStatusForm}" method="post">
+			<span><input type="radio" name="applicationStatus" value="0" th:field="*{statusId}" id="unhandledStatus">Unhandled</span>		
+			<span><input type="radio" name="applicationStatus" value="1" th:field="*{statusId}" id="acceptedStatus">Accepted</span>
+			<span><input type="radio" name="applicationStatus" value="2" th:field="*{statusId}" id="rejectedStatus" >Rejected</span>
+			<span class="submit"><input type="submit" value="Save the change"/></span>
+        </form>		
+    </section>
+	
+	<section>
+		<a href="list-applications-page.html"><button>Go back to the applications list</button></a>			
+    </section>	
+	
+</main>
+</body>
+</html>

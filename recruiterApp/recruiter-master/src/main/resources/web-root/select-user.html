@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{resources/fragments/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<main layout:fragment="content">
+
+    <section>
+		<p class="msg" th:text="${register-message}">REG_MESSAGE</p>
+        <h1 th:text="#{select-user.create-user}">User Registration</h1>
+        <p class="info" th:text="#{select-user.create-user.info}">Please enter your personal information</p>
+        <form th:action="@{/create-user}" th:object="${createUserForm}" method="post">
+            <p class="form"><label for="create-personId" th:text="#{select-user.create-user.personId}">Person ID</label>:<input type="text"
+                                      th:field="*{personId}"
+                                      id="create-personId"/>
+                <span class="error" th:if="${#fields.hasErrors('personId')}" th:errors="*{personId}">PersonId Error</span>
+			</p>            
+			<p class="form"><label for="create-first-name" th:text="#{select-user.create-user.first-name}">First Name</label>:<input type="text"
+                                      th:field="*{firstName}" 
+                                      id="create-first-name"/>
+                <span class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">FirstName Error</span>
+			</p>
+            <p class="form"><label for="create-last-name" th:text="#{select-user.create-user.last-name}">Last Name</label>:<input type="text"
+                                      th:field="*{lastName}"
+                                      id="create-last-name"/>
+                <span class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">LastName Error</span>
+			</p>
+            <p class="form"><label for="create-ssn" th:text="#{select-user.create-user.ssn}">SSN</label>:<input type="text"
+                                      th:field="*{ssn}"
+                                      id="create-ssn"/>
+                <span class="error" th:if="${#fields.hasErrors('ssn')}" th:errors="*{ssn}">SSN Error</span>
+			</p>
+            <p class="form"><label for="create-email" th:text="#{select-user.create-user.email}">Email Adress</label>:<input type="text"
+                                      th:field="*{email}"
+                                      id="create-email"/>
+                <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
+			</p>
+            <p class="form"><label for="create-username" th:text="#{select-user.create-user.username}">User Name</label>:<input type="text"
+                                      th:field="*{username}"
+                                      id="create-username"/>
+                <span class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</span>
+			</p>
+            <p class="form"><label for="create-password" th:text="#{select-user.create-user.password}">Password</label>:<input type="text"
+                                      th:field="*{password}"
+                                      id="create-password"/>
+                <span class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</span>
+			</p>
+            <p class="form"><label for="create-roleId" th:text="#{select-user.create-user.user-roleId}">User Role</label>:
+			<input type="radio" name="roleId" value="1" th:field="*{roleId}" id="create-userRoleId" >Recruiter
+			<input type="radio" name="roleId" value="2" th:field="*{roleId}" id="create-userRoleId" >Applicant
+            <span class="error" th:if="${#fields.hasErrors('roleId')}" th:errors="*{roleId}">UserRole Error</span>
+			</p>			
+			
+            <p class="submit"><input type="submit" th:value="#{select-user.create-user.submit}"/>
+            </p>
+        </form>
+    </section>
+
+    <section>
+		<p class="msg" th:text="${LOGIN_MESSAGE_NAME}">LOG_MESSAGE</p>
+        <h1 th:text="#{select-user.login}">Login</h1>
+        <p class="info" th:text="#{select-user.login.info}">Please login</p>
+        <form th:action="@{/login-user}" th:object="${loginForm}" method="post">
+            <p class="form"><label for="user-login-username" th:text="#{select-user.login.username}">User Name</label>:<input type="text"
+                                      th:field="*{username}"
+                                      id="user-login-username"/>
+                <span class="error"
+                      th:if="${#fields.hasErrors('username')}"
+                      th:errors="*{username}">Username Error</span>
+			</p>
+            <p class="form"><label for="user-login-password" th:text="#{select-user.login.password}">Password</label>:<input type="text"
+                                      th:field="*{password}"
+                                      id="user-login-password"/>
+                <span class="error"
+                      th:if="${#fields.hasErrors('password')}"
+                      th:errors="*{password}">Password Error</span>
+			</p>
+			
+            <p class="submit"><input type="submit" th:value="#{select-user.login.submit}"/></p>
+        </form>
+    </section>
+
+</main>
+</body>
+</html>

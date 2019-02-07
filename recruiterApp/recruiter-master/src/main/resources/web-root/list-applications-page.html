@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{resources/fragments/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<main layout:fragment="content">
+    <section>
+        <p class="info">
+            <span th:text="#{user.details.welcome}">Welcome</span>: <span th:text="${currenUser.username}">username</span>!
+        </p>
+    </section>	
+	
+    <section>
+		<h1 th:text="#{search-result-info}">The search result:</h1>
+		<table>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Application Date</th>
+            </tr>
+
+            <tr th:each="application:${searchResult}">
+                <td th:text="${application.getUser().getFirstName()}">firstname</td>
+                <td th:text="${application.getUser().getLastName()}">lastname</td>
+                <td th:text="${application.getApplicationDate()}">applicationdate</td>
+				<td><a href="#" th:href="@{/show-application(applicationId=${application.getId()})}">Show The Application</a></td>
+            </tr>
+		</table>
+    </section>
+	
+    <section>
+		<a href="recruiter-page.html"><button>New Search</button></a>			
+    </section>	
+</main>
+</body>
+</html>

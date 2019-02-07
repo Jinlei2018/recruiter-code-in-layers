@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{resources/fragments/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<main layout:fragment="content">
+    <section>
+        <p class="info">
+            <span th:text="#{user.details.welcome}">Welcome</span>: <span th:text="${currenUser.username}">username</span>!
+        </p>
+    </section>	
+	
+    <section>
+        <h1 th:text="#{recruiter-page.search-application-info}">Search for applications</h1>
+        <form th:action="@{/search-for-applications}" th:object="${searchApplicationsForm}" method="post">	
+			<h2 th:text="#{recruiter-page.search-by-availability}">Search by work time period:</h2>
+            <label for="availabilityFromInfo" th:text="#{recruiter-page.search-availability-from-info}">Can Work From</label>:<input type="text"
+                    th:field="*{availabilityFromYear}" 
+                    id="search-from-date-year"/>-<input type="text"
+                    th:field="*{availabilityFromMonth}" 
+                    id="search-from-date-month"/>-<input type="text"
+                    th:field="*{availabilityFromDay}" 
+                    id="search-from-date-day"/>
+
+            <label for="availabilityEndInfo" th:text="#{recruiter-page.search-availability-to-info}">Can Work To</label>:<input type="text"
+                    th:field="*{availabilityToYear}" 
+                    id="search-to-date-year"/>-<input type="text"
+                    th:field="*{availabilityToMonth}" 
+                    id="search-to-date-month"/>-<input type="text"
+                    th:field="*{availabilityToDay}" 
+                    id="search-to-date-day"/>									  
+	
+			<h2 th:text="#{recruiter-page.search-by-application-date}">Search by application date:</h2>
+			<input type="text"
+                    th:field="*{applicationYear}" 
+                    id="search-application-date-year"/>-<input type="text"
+                    th:field="*{applicationMonth}" 
+                    id="search-application-date-month"/>-<input type="text"
+                    th:field="*{applicationDay}" 
+                    id="search-application-date-day"/>
+
+			<h2 th:text="#{recruiter-page.search-by-competence}">Search by competence:</h2>					
+			<select name="competence" th:field="*{competenceId}" id="competenceId"> 
+				<option value="1">Economy</option> 
+				<option value="2">Computer Science</option>
+				<option value="3">Material Science</option>
+				<option value="4">Education</option>				
+			</select>
+			
+			<h2 th:text="#{recruiter-page.search-by-name}">Search by name:</h2>					
+			<input type="text" th:field="*{name}" id="search-by-name"/>					
+
+			<p class="submit"><input type="submit" value="Search"/></p>
+        </form>
+    </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{resources/fragments/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<main layout:fragment="content">
+    <section>
+        <p class="info">
+            <span th:text="#{user.details.welcome}">Welcome</span>: <span th:text="${currenUser.username}">username</span>!
+        </p>
+    </section>	
+	
+    <section>
+        <h1 th:text="#{applicant-page.add-competence-profile}">Add Competence Profile</h1>
+        <form th:action="@{/add-competence-profile}" th:object="${addCompetenceProfileForm}" method="post">
+            <label for="competenceId" th:text="#{applicant-page.competence-info}">Competence</label>:
+			<select name="competence" th:field="*{competenceId}" id="competenceId"> 
+				<option value="1">Economy</option> 
+				<option value="2">Computer Science</option>
+				<option value="3">Material Science</option>
+				<option value="4">Education</option>				
+			</select>
+            <label for="yearsOfExperience" th:text="#{applicant-page.years-info}">Years of experience</label>:			
+			<input type="text" th:field="*{yearsOfExperience}" id="yearsOfExperience"/>
+                <span class="error" th:if="${#fields.hasErrors('yearsOfExperience')}"
+                      th:errors="*{yearsOfExperience}">AmountOfYears Error</span> 
+            <p class="submit"><input type="submit" th:value="#{applicant-page.add-competence-profile.submit}"/></p>
+        </form>
+    </section>
+
+    <section>
+        <h1 th:text="#{applicant-page.add-availability}">Add Availability</h1>
+        <form th:action="@{/add-availability}" th:object="${addAvailabilityForm}" method="post">
+            <label for="availabilityFromInfo" th:text="#{applicant-page.availability-from-info}">From Date</label>:<input type="text"
+                                      th:field="*{fromYear}" 
+                                      id="create-from-date-year"/>-<input type="text"
+                                      th:field="*{fromMonth}" 
+                                      id="create-from-date-month"/>-<input type="text"
+                                      th:field="*{fromDay}" 
+                                      id="create-from-date-day"/>
+
+            <label for="availabilityEndInfo" th:text="#{applicant-page.availability-to-info}">To Date</label>:<input type="text"
+                                      th:field="*{toYear}" 
+                                      id="create-to-date-year"/>-<input type="text"
+                                      th:field="*{toMonth}" 
+                                      id="create-to-date-month"/>-<input type="text"
+                                      th:field="*{toDay}" 
+                                      id="create-to-date-day"/>									  
+	
+            <p class="submit"><input type="submit" th:value="#{applicant-page.add-availability.submit}"/></p>
+        </form>
+    </section>
+	
+    <section>
+		<h1 th:text="#{applicant-page.competenceProfiles-info}">Added Competence Profiles</h1>
+		<table>
+            <tr>
+                <th>CompetenceProfileId</th>
+                <th>CompetenceId</th>
+                <th>YearsOfExperience</th>
+            </tr>
+            <tr th:each="competenceProfile:${tempCompetenceProfiles}">
+                <td th:text="${competenceProfile.id}"></td>
+                <td th:text="${competenceProfile.Competence.id}"></td>
+                <td th:text="${competenceProfile.yearsOfExperience}"></td>
+            </tr>
+		</table>
+    </section>
+	
+	<section>
+		<h1 th:text="#{applicant-page.availabilities-info}">Added Availabilities</h1>
+		<table>
+            <tr>
+                <th>AvailabilityId</th>
+                <th>FromDate</th>
+                <th>EndDate</th>
+            </tr>
+            <tr th:each="availability:${tempAvailabilities}">
+                <td th:text="${availability.id}"></td>
+                <td th:text="${availability.fromDate}"></td>
+                <td th:text="${availability.endDate}"></td>
+            </tr>
+		</table>
+    </section>
+	
+    <section>
+        <form th:action="@{/send-application}" th:object="${sendApplicationForm}" method="post">
+			<h1 th:text="#{applicant-page.send-application-info}">Will you send the application?</h1>
+			<span class="submit"><input type="submit" value="Send Application"/></span>
+			<span class="submit"><input type="button" value="Cancel"/></span>
+        </form>
+    </section>	
+</main>
+</body>
+</html>
